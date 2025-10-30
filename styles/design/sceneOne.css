@@ -1,0 +1,46 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background: #3498db;
+  border-radius: 10px;
+}
+
+.box2 {
+  width: 100px;
+  height: 100px;
+  background: red;
+  border-radius: 10px;
+}
+
+.notification {
+  position: relative;
+  border: 1px solid black;
+  /* create a positioning context */
+  display: inline-block;
+}
+
+.notification img {
+  position: absolute;
+  /* stack all images in the same spot */
+  top: 0;
+  right: 0;
+  width: 100px;
+  /* make sure they match container */
+}
+
+/* make the first image on top */
+.notification img:first-child {
+  z-index: 3;
+}
+
+.notification img:nth-child(2) {
+  top: 4px;
+  scale: 0.95;
+  z-index: 2;
+}
+
+.notification img:nth-child(3) {
+  top: 6px;
+  scale: 0.90;
+  z-index: 1;
+}
