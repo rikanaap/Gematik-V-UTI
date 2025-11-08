@@ -1,39 +1,46 @@
-export function sceneOne(tl) {
-    gsapEntry(tl)
+// TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
+// TODO: VARIABLE FOR DOM
+const sectionOne = document.querySelector(".section-one");
+const notifImage = document.querySelectorAll(".s1-notif")
+// const sectionTwo =
+
+
+export function sceneOne(tl) {
+    notifImage.forEach((notif) => notif.style.opacity = 0)
+    gsapEntry(tl)
     gsapExit(tl)
 }
 
 function gsapEntry(tl) {
-    gsap.set(".notification img", {
-        y: "-=50",
-        opacity: 0
+    tl = gsap.timeline()
+    tl.fromTo(".s1-hand", {
+        y: "200vh",
+        opacity: 1,
+    }, {
+        y: 0,
+        duration: 1
     });
-    notifiSetup(tl);
 
-    gsap.to(".box", {
+    //? FIRST APPEARANCE
+    tl = gsap.timeline({
         scrollTrigger: {
-            trigger: ".box",      // element to watch
-            start: "top center",  // when box hits center of viewport
-            end: "bottom top",    // when box leaves viewport
-            scrub: 1,          // makes it smooth + tied to scroll
-            markers: true         // show start/end markers (for debugging)
+            trigger: ".scroll-space",
+            end: "+=100", // makin besar makin panjang area scroll
+            scrub: true,
+            pin: true,
         },
-        x: 300,  // move to the right by 50% of the viewport width
-        rotation: 360,
-        backgroundColor: "#e74c3c",
-        ease: "none"
     });
-    
-    gsap.to(".box2", {
-        x: "+=0.5",
-        y: "+=1",
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    });
-    
+    tl.from(".s1-notif:nth-child(-n+3)",
+        {
+            opacity: 0,
+            scale: 0.5,
+            duration: 0.5,
+            stagger: 0.2,
+        },
+        ">"
+    ); // muncul berurutan
+
 }
 
 function gsapExit(tl) {
@@ -41,42 +48,3 @@ function gsapExit(tl) {
 }
 
 //TODO: OTHER FUNCTION BELOW
-function notifiSetup(tl) {
-    tl.to(".notification img:nth-child(3)", {
-        y: 2,
-        opacity: 1,
-        duration: 0.5,
-        ease: "back.out(0)"
-    })
-        .to(".notification img:nth-child(2)", {
-            y: 1, // match your CSS offset
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out(0)"
-        }, '-=0.4') // overlap slightly
-        .to(".notification img:nth-child(1)", {
-            y: 0, // topmost layer
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out(1.7)"
-        }, "-=0.6");
-
-    const imgs = document.querySelectorAll(".notification img");
-    imgs.forEach(img => {
-        let hoverAnim;
-
-        img.addEventListener("mouseenter", () => {
-            if(hoverAnim && hoverAnim.isActive()) return;
-            hoverAnim = gsap.to(".notification img", {
-                x: "+=0.5",
-                y: "+=1",
-                duration: 0.5,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-        });
-
-        img.addEventListener("mouseleave", () => { if (hoverAnim) hoverAnim.kill(); });
-    });
-}

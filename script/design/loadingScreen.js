@@ -1,46 +1,60 @@
-export function loadingScreen() {
-  gsapEntry();
+// VARIABLE FOR EXIT REPEAT ANIMATION
+let shakeGSAP;
 
-  gsapExit();
+// VARIABLE FOR DOM
+const splashView = document.querySelector(".splash");
+const sectionOne = document.querySelector(".section-one");
+
+export function loadingScreen(tl = gsap.timeline()) {
+  return new Promise((resolve) => {
+    sectionOne.style.display = "none";
+    gsapEntry(tl);
+
+    // Exit after 3 seconds
+    setTimeout(() => {
+      gsapExit(tl, resolve);
+    }, 3000);
+  });
 }
 
-const splashText = document.getElementById("splashText");
+function gsapEntry(tl) {
+  gsap.fromTo(
+    ".splashText",
+    { opacity: 0, y: 20, ease: "power1.inOut" },
+    { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }
+  );
 
-function gsapEntry() {
-  gsap.from(splashText, {
-    opacity: 0,
-    y: -20,
-    yoyo: true,
-    ease: "power1.inOut",
-  });
-  gsap.to(splashText, {
-    opacity: 1,
-    y: 0,
-    duration: 3,
-    yoyo: true,
-    ease: "power1.inOut",
-  });
+  gsap.fromTo(
+    ".splashIMG",
+    { opacity: 0, y: 20, ease: "power1.inOut" },
+    { opacity: 1, y: 0, duration: 1, ease: "power1.inOut" }
+  );
 
-  fadeScreen();
+  shakeGSAP = tl.to(".splashText", {
+    x: 5,
+    y: 4,
+    rotate: -15,
+    duration: 0.5,
+    delay: 0.5,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1,
+    repeatDelay: 0.1,
+    repeatRefresh: true,
+  });
 }
 
-function gsapExit() {}
+function gsapExit(tl, resolve) {
+  if (shakeGSAP) shakeGSAP.kill();
 
-//TODO: OTHER FUNCTION BELOW
-function fadeScreen() {
-  setTimeout(() => {
-    const tl = gsap.timeline();
-
-    tl.to(".loader", {
-      opacity: 0,
-      duration: 0.6,
-      ease: "power1.out",
-    })
-      .set(".loader", { display: "none" }) // hide completely
-      .to(".content", {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-      });
-  }, 100); // fake loading time (2.5s)
+  tl = gsap.timeline();
+  tl.to([".splashText", ".splashIMG"], {
+    y: "200vh",
+    duration: 2,
+    ease: "power1.out",
+    onComplete: () => {
+      sectionOne.style.display = "block";
+      resolve(); // ✅ let main.js know loading is done
+    },
+  });
 }
