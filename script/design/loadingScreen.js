@@ -1,40 +1,46 @@
 export function loadingScreen() {
-    gsapEntry()
+  gsapEntry();
 
-    gsapExit()
+  gsapExit();
 }
+
+const splashText = document.getElementById("splashText");
 
 function gsapEntry() {
-    gsap.to(".circle", {
-        y: -20,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-    });
+  gsap.from(splashText, {
+    opacity: 0,
+    y: -20,
+    yoyo: true,
+    ease: "power1.inOut",
+  });
+  gsap.to(splashText, {
+    opacity: 1,
+    y: 0,
+    duration: 3,
+    yoyo: true,
+    ease: "power1.inOut",
+  });
 
-    fadeScreen()
+  fadeScreen();
 }
 
-function gsapExit() {
-
-}
+function gsapExit() {}
 
 //TODO: OTHER FUNCTION BELOW
 function fadeScreen() {
-    setTimeout(() => {
-        const tl = gsap.timeline();
+  setTimeout(() => {
+    const tl = gsap.timeline();
 
-        tl.to(".loader", {
-            opacity: 0,
-            duration: 0.6,
-            ease: "power1.out"
-        })
-            .set(".loader", { display: "none" }) // hide completely
-            .to(".content", {
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out"
-            });
-    }, 100); // fake loading time (2.5s)
+    tl.to(".loader", {
+      opacity: 0,
+      duration: 0.6,
+      ease: "power1.out",
+    })
+      .set(".loader", { display: "none" }) // hide completely
+      .to(".content", {
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+  }, 100); // fake loading time (2.5s)
 }

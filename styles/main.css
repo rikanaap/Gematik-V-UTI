@@ -1,3 +1,13 @@
 @import url("important.css");
 @import url("design/loadingScreen.css");
 @import url("design/sceneOne.css");
+
+* {
+  font-family: "Gochi Hand", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.primary-text {
+  color: #4c4e52;
+}
