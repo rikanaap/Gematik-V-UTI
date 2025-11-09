@@ -25,22 +25,25 @@ function gsapEntry(tl) {
     //? FIRST APPEARANCE
     tl = gsap.timeline({
         scrollTrigger: {
-            trigger: ".scroll-space",
-            end: "+=100", // makin besar makin panjang area scroll
-            scrub: true,
-            pin: true,
+            trigger: ".div-s1",      // element to watch
+            scroller: ".scroll-wraper",
+            start: "center center",
+            end: "+=1000",
+            scrub: true,          // makes it smooth + tied to scroll
+            markers: true         // show start/end markers (for debugging)
         },
-    });
-    tl.from(".s1-notif:nth-child(-n+3)",
+    })
+    tl.to(".s1-notif:nth-child(-n+3)",
         {
-            opacity: 0,
+            opacity: 1,
             scale: 0.5,
-            duration: 0.5,
+            duration: 1,
             stagger: 0.2,
-        },
-        ">"
-    ); // muncul berurutan
-
+        }
+    ).to(".s1-hand", {
+        rotate: 40,
+        duration: 1
+    }, "<");
 }
 
 function gsapExit(tl) {
