@@ -11,6 +11,9 @@
 .primary-text {
   color: #4c4e52;
 }
+.dark-primary-text {
+  color: #adafb3;
+}
 
 .bg-primary {
   background-color: #d3d9e0;
