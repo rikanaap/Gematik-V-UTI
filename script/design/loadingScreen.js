@@ -31,9 +31,7 @@ function gsapEntry(tl) {
   );
 
   shakeGSAP = tl.to(".splashText", {
-    x: 5,
     y: 4,
-    rotate: -15,
     duration: 0.5,
     delay: 0.5,
     ease: "power1.inOut",
@@ -44,12 +42,13 @@ function gsapEntry(tl) {
   });
 }
 
+
 function gsapExit(tl, resolve) {
   if (shakeGSAP) shakeGSAP.kill();
 
   tl = gsap.timeline();
   tl.to([".splashText", ".splashIMG"], {
-    y: "200vh",
+    opacity: 0,
     duration: 2,
     ease: "power1.out",
     onComplete: () => {
