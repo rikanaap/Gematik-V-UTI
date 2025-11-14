@@ -1,14 +1,24 @@
-export function sectionName(tl) {
-    gsapEntry(tl)
+import { createTimeline } from "../general.js";
 
-    gsapExit(tl)
-}
+// TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
-function gsapEntry(tl) {
+// TODO: VARIABLE FOR DOM
+const section = document.querySelector(".section-"); //!! CHANGE SECTION NAME
+
+export function sceneOne() {
+  return new Promise((resolve) => {
+    if (section.style.display == "") {resolve(); return;}
    
+    gsapEntry();
+    gsapExit(resolve);
+  })
 }
 
-function gsapExit(tl) {
+function gsapEntry() {
+
+}
+
+function gsapExit(resolve) {
 
 }
 

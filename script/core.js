@@ -1,23 +1,18 @@
 gsap.registerPlugin(ScrollTrigger);
+
 const lenis = new Lenis();
 
-lenis.on("scroll", () => {
-  ScrollTrigger.update();
-});
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
 
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
-});
-
-gsap.ticker.lagSmoothing(0);
-
-ScrollTrigger.scrollerProxy(document.body, {
+ScrollTrigger.scrollerProxy(".scroll-wrapper", {
   scrollTop(value) {
-    if (arguments.length) {
-      lenis.scrollTo(value);
-    } else {
-      return lenis.scroll;
-    }
+    return arguments.length
+      ? lenis.scrollTo(value)
+      : lenis.scroll;
   },
   getBoundingClientRect() {
     return {
@@ -28,9 +23,7 @@ ScrollTrigger.scrollerProxy(document.body, {
     };
   },
 });
-// ScrollSmoother.create({
-//   wrapper: ".scroll-wrapper",
-//   content: ".scroll-space",
-//   smooth: 1.2, // higher = smoother
-//   effects: true,
-// });
+
+ScrollTrigger.defaults({
+  scroller: ".scroll-wrapper",
+});

@@ -1,181 +1,258 @@
+import { createTimeline } from "../general.js";
+
 // TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
 // TODO: VARIABLE FOR DOM
-const sectionOne = document.querySelector(".section-one");
+const section = document.querySelector(".section-one");
+const nextSection = document.querySelector(".section-two");
 const notifImage = document.querySelectorAll(".s1-notif");
-// const sectionTwo =
+const bubbles = document.querySelectorAll(
+  ".bubText1, .bubText2, .bubbleText3, .bubbleText4, .bubbleText5"
+);
 
-export function sceneOne(tl) {
-  notifImage.forEach((notif) => (notif.style.opacity = 0));
-  gsapEntry(tl);
-  gsapExit(tl);
+// const sectionTwo =
+let tl, timeObj = { h: 0, m: 0 };
+
+export function sceneOne() {
+  return new Promise((resolve) => {
+    if (section.style.display == "") {resolve(); return;}
+    
+    notifImage.forEach((notif) => (notif.style.opacity = 0));
+    bubbles.forEach((bubble) => bubble.style.opacity = 0)
+    gsapEntry();
+    gsapExit(resolve);
+  })
 }
 
-function gsapEntry(tl) {
-  const timeObj = { h: 0, m: 0 };
+function gsapEntry() {
 
-  //? FIRST APPEARANCE
-  tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".div-s1", // element to watch
-      start: "center center",
-      end: "+=10000",
-      scrub: true, // makes it smooth + tied to scroll
-      markers: true, // show start/end markers (for debugging)
-    },
-  });
+  //? OPENING
+  tl = gsap.timeline()
+  tl.to(".s1-notif", { scale: 0 })
   tl.fromTo(
     ".s1-hand",
+    { y: "200vh", opacity: 1 },
+    { y: 5, duration: 1 }
+  )
+
+  s1f1(".div-s1_1")
+  s1f2(".div-s1_2")
+  s1f3(".div-s1_3")
+  s1f4(".div-s1_4")
+  s1f5(".div-s1_5")
+  s1f6(".div-s1_6")
+  s1f7(".div-s1_7")
+  s1f8(".div-s1_8")
+  s1f9(".div-s1_9")
+}
+
+function gsapExit(resolve) {
+  tl = createTimeline({ scroll: true, trigger: ".div-s1_f" })
+  tl.to(".bubbleText5 h1", { opacity: 0, duration: 3, ease: "power4.out" })
+    .to(".bubbleText5", { scale: 10, duration: 6, ease: "power4.inOut" })
+    .to(".section-one", {
+      backgroundColor: "#D3D9E0",
+      duration: 0.5,
+      ease: "power2.inOut",
+      immediateRender: false,
+    })
+    .to(".bubbleText5", { scale: 0, y: "-200vh", duration: 2, ease: "power4.inOut", onComplete: () => { resolve(); } }, "<")
+    .to(nextSection, { opacity: 1, onComplete: () => gsap.set(section, { display: "none" }) })
+}
+
+//TODO: OTHER FUNCTION BELOW
+function s1f1(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(
+    ".s1-hand",
     {
-      y: "200vh",
+      rotate: 25,
+      y: 75,
+      duration: 1,
+      ease: "power2.out",
+    },
+  ).to(".s1-notif:nth-child(1)", {
+    opacity: 1,
+    scale: 1,
+    duration: 1,
+    ease: "power3.out",
+  }, "<")
+}
+
+function s1f2(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(
+    ".s1-hand",
+    {
+      rotate: -15,
+      y: 30,
+      duration: 1,
+      ease: "power2.out",
+    },
+  ).to(".s1-notif:nth-child(2), .s1-notif:nth-child(3)", {
+    opacity: 1,
+    scale: 1,
+    duration: 1,
+    stagger: 0.5,
+    ease: "power3.out",
+  }, "<")
+}
+
+function s1f3(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(".s1-hand", {
+    rotate: 0,
+    y: 27,
+    duration: 1,
+    ease: "power2.out",
+  }).to(".s1-notif:nth-child(+n+3)", {
+    opacity: 1,
+    scale: 1,
+    duration: 1,
+    stagger: 0.5,
+    ease: "power3.out",
+  }, "<")
+}
+
+function s1f4(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(
+    ".s1-hand",
+    {
+      y: "100%",
+      duration: 5,
+      ease: "power1.out",
+    },
+  ).fromTo(
+    ".s1-hp",
+    {
+      y: "-200vh",
       opacity: 1,
     },
     {
-      y: 27,
-      duration: 2,
-    }
+      y: 200,
+      duration: 5,
+      ease: "power2.out",
+    }, "<"
+  ).fromTo(
+    ".time",
+    {
+      y: "-200vh",
+      opacity: 1,
+    },
+    {
+      y: 200,
+      duration: 5,
+      ease: "power2.out",
+    },
+    "<"
   )
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(".s1-notif:nth-child(-n+3)", {
-      opacity: 1,
-      scale: 1,
-      duration: 2.5,
-      stagger: 0.5,
-      ease: "power3.out",
-    })
-    .to(
-      ".s1-hand",
-      {
-        rotate: 15,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to(".s1-notif:nth-child(n+4):nth-child(-n+6)", {
-      opacity: 1,
-      scale: 1,
-      duration: 2.5,
-      stagger: 0.5,
-      ease: "power3.out",
-    })
-    .to(
-      ".s1-hand",
-      {
-        rotate: -25,
-        y: 76,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
-    .to(".s1-hand", {
-      rotate: 0,
-      y: 27,
-      duration: 3,
+
+  tl.to(".s1-notif:nth-child(1)", {
+    x: 100,
+    duration: 1,
+    ease: "power2.out",
+  }, "<").to(
+    ".s1-notif:nth-child(4)",
+    {
+      x: 140,
+      y: -100,
+      duration: 1,
       ease: "power2.out",
-    })
-    .to({}, { duration: 6 })
-    .to(
-      ".s1-hand",
-      {
-        y: "200vh",
-        duration: 5,
-        ease: "power2.out",
-      },
-      ">2"
-    )
-    .to(".s1-notif:nth-child(1)", {
-      x: 100,
-      duration: 3,
-      ease: "power2.out",
-    })
-    .to(
-      ".s1-notif:nth-child(2)",
-      {
-        x: 140,
-        y: -100,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to(
-      ".s1-notif:nth-child(3)",
-      {
-        x: 50,
-        y: 70,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to(
-      ".s1-notif:nth-child(4)",
-      {
-        x: -500,
-        y: 180,
-        scale: 0.7,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
+    }, "<"
+  )
     .to(
       ".s1-notif:nth-child(5)",
       {
-        x: -140,
-        y: -100,
-        duration: 3,
+        x: 50,
+        y: 70,
+        duration: 1,
         ease: "power2.out",
-      },
-      "<"
+      }, "<"
     )
     .to(
       ".s1-notif:nth-child(6)",
       {
+        x: -500,
+        y: 180,
+        scale: 0.7,
+        duration: 1,
+        ease: "power2.out",
+      }, "<"
+    )
+    .to(
+      ".s1-notif:nth-child(3)",
+      {
+        x: -140,
+        y: -100,
+        duration: 1,
+        ease: "power2.out",
+      }, "<"
+    )
+    .to(
+      ".s1-notif:nth-child(2)",
+      {
         x: -50,
         y: 70,
-        duration: 3,
+        duration: 1,
         ease: "power2.out",
-      },
-      "<"
+      }, "<"
     )
-    .fromTo(
-      ".s1-hp",
-      {
-        y: "-200vh",
-        opacity: 1,
-      },
-      {
-        y: 200,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .fromTo(
-      ".time",
-      {
-        y: "-200vh",
-        opacity: 1,
-      },
-      {
-        y: 200,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to(".time", {
-      y: 100,
+}
+
+function s1f5(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(".time", {
+    y: 100,
+    duration: 1,
+    ease: "power2.out",
+  }).to(timeObj, {
+    h: 15,
+    m: 59,
+    duration: 5,
+    ease: "none",
+    onUpdate: () => {
+      const h = String(Math.floor(timeObj.h)).padStart(2, "0");
+      const m = String(Math.floor(timeObj.m)).padStart(2, "0");
+      document.querySelector(".time").textContent = `${h}:${m}`;
+    }
+  }).to(
+    ".time",
+    {
+      color: "#ADAFB3",
       duration: 3,
-      ease: "power2.out",
-    })
-    .to(timeObj, {
-      h: 15,
+      ease: "power2.inOut",
+    },
+    "<"
+  ).to(
+    ".section-one",
+    {
+      backgroundColor: "#20262D",
+      duration: 3,
+      ease: "power2.inOut",
+      immediateRender: false,
+    },
+    "<"
+  ).to(".s1-notif:nth-child(-n+6)", {
+    opacity: 0,
+    scale: 0,
+    rotate: 50,
+    stagger: 0.8,
+    duration: 4,
+    ease: "power3.out",
+  }, "<")
+
+  tl.to(
+    ".s1-hp",
+    {
+      y: "200%",
+      duration: 5,
+      ease: "power1.out",
+    }
+  ).to(
+    timeObj,
+    {
+      h: 24,
       m: 59,
       duration: 3,
       ease: "none",
@@ -184,623 +261,120 @@ function gsapEntry(tl) {
         const m = String(Math.floor(timeObj.m)).padStart(2, "0");
         document.querySelector(".time").textContent = `${h}:${m}`;
       },
-    })
-    .to(
-      ".time",
-      {
-        color: "#ADAFB3",
-        duration: 3,
-        ease: "power2.inOut",
-      },
-      "<"
-    )
-    .to(
-      ".section-one",
-      {
-        backgroundColor: "#20262D",
-        duration: 3,
-        ease: "power2.inOut",
-        immediateRender: false,
-      },
-      "<"
-    )
-    .to(".s1-notif:nth-child(-n+6)", {
-      opacity: 0,
-      scale: 0.5,
+    },
+    "<1"
+  ).to(
+    ".time",
+    {
+      scale: 3,
+      y: () => window.innerHeight / 2 - document.querySelector(".time").offsetHeight / 2,
       duration: 3,
-      stagger: 0.4,
       ease: "power3.out",
-    });
-  tl.to({}, { duration: 3 })
-    .to(
-      ".s1-hp",
-      {
-        y: "200vh",
-        opacity: 1,
-        duration: 3,
-        ease: "power2.out",
-      },
-      "<"
-    )
-    .to(
-      timeObj,
-      {
-        h: 24,
-        m: 59,
-        duration: 3,
-        ease: "none",
-        onUpdate: () => {
-          const h = String(Math.floor(timeObj.h)).padStart(2, "0");
-          const m = String(Math.floor(timeObj.m)).padStart(2, "0");
-          document.querySelector(".time").textContent = `${h}:${m}`;
-        },
-      },
-      "<1"
-    )
-    .to(
-      ".time",
-      {
-        scale: 3,
-        y: () => window.innerHeight / 2 - document.querySelector(".time").offsetHeight / 2,
-        duration: 3,
-        ease: "power3.out",
-      },
-      "<"
-    )
-    .to(
-      ".section-one",
-      {
-        backgroundColor: "#000",
-        duration: 3,
-        ease: "power2.inOut",
-        immediateRender: false,
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
-    .to(".time", {
-      opacity: 0,
-      duration: 3,
+    },
+    "<"
+  )
+}
+
+function s1f6(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to(
+    ".section-one",
+    {
+      backgroundColor: "#000",
+      duration: 1,
       ease: "power2.inOut",
-    })
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".bubText1",
-      {
-        y: "200vh",
-        ease: "power4.out",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
+      immediateRender: false,
+    }
+  ).to(".time", {
+    opacity: 0,
+    duration: 1,
+    ease: "power2.inOut",
+  })
+}
+
+function s1f7(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.fromTo(
+    ".bubText1",
+    {
+      y: "200vh",
+      opacity: 0.5,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 3,
+      ease: "power4.out",
+    },
+    "<"
+  )
     .fromTo(
       ".bubText2",
       {
         y: "200vh",
-        ease: "power4.out",
+        opacity: 0.5,
       },
       {
         y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to({}, { duration: 6 })
-    .to([".bubText1", ".bubText2"], {
-      y: "-200vh",
-      duration: 3,
-      ease: "power4.out",
-    })
-    .fromTo(
-      ".bubbleText3",
-      {
-        y: "200vh",
-        ease: "power4.out",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".bubbleText4",
-      {
-        y: "200vh",
-        ease: "power4.out",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to({}, { duration: 6 })
-    .to([".bubbleText3", ".bubbleText4"], {
-      y: "-200vh",
-      duration: 3,
-      ease: "power4.out",
-    })
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".bubbleText5",
-      {
-        y: "200vh",
-        ease: "power4.out",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
-    .to(".bubbleText5 h1", { opacity: 0, duration: 3, ease: "power4.out" })
-    .to({}, { duration: 6 })
-    .to(".bubbleText5", { scale: 10, duration: 6, ease: "power4.inOut" })
-    .to(".section-one", {
-      backgroundColor: "#D3D9E0",
-      duration: 0.5,
-      ease: "power2.inOut",
-      immediateRender: false,
-    })
-    .to(".bubbleText5", { scale: 0, y: "-200vh", duration: 2, ease: "power4.inOut" }, "<");
-
-  const textElement = document.querySelector(".typing-text");
-  const text = "sulit sekali untuk berkonsentrasi...";
-  textElement.innerHTML = text
-    .split("")
-    .map((char) => `<span class="char">${char}</span>`)
-    .join("");
-  gsap.set(".char", { opacity: 0 });
-
-  tl.fromTo(
-    ".s2-1",
-    {
-      x: "-100vw",
-    },
-    { x: 0, duration: 3, ease: "power4.out" }
-  )
-    .to(
-      ".char",
-      {
         opacity: 1,
         duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-1", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".section-one", {
-      backgroundColor: "#4C4E52",
-      duration: 3,
-      ease: "power2.inOut",
-      immediateRender: false,
-    });
-
-  const textElement2 = document.querySelector(".typing-text2");
-  const text2 = "Dulu, aku bisa fokus pada momen-momen indah. Apa yang berubah..?";
-  textElement2.innerHTML = text2
-    .split("")
-    .map((char) => `<span class="char2">${char}</span>`)
-    .join("");
-  gsap.set(".char2", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-    .fromTo(
-      ".s2-2",
-      {
-        x: "-100vw",
-      },
-      { x: 0, duration: 3, ease: "power4.out" }
-    )
-    .to(
-      ".char2",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-2", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char2",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".section-one", {
-      backgroundColor: "#D3D9E0",
-      duration: 3,
-      ease: "power2.inOut",
-      immediateRender: false,
-    });
-
-  const textElement3 = document.querySelector(".typing-text3");
-  const text3 = "Langkah pertama ciptakan ruang yang tenang..";
-  textElement3.innerHTML = text3
-    .split("")
-    .map((char) => `<span class="char3">${char}</span>`)
-    .join("");
-  gsap.set(".char3", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-    .fromTo(
-      ".s2-3",
-      {
-        x: "-100vw",
-      },
-      { x: 0, duration: 3, ease: "power4.out" }
-    )
-    .to(
-      ".char3",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-3", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char3",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    );
-
-  const textElement4 = document.querySelector(".typing-text4");
-  const text4 = "Tenangkan pikiran. Tarik napas, hembuskan.";
-  textElement4.innerHTML = text4
-    .split("")
-    .map((char) => `<span class="char4">${char}</span>`)
-    .join("");
-  gsap.set(".char4", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-
-    .fromTo(
-      ".s2-4",
-      {
-        x: "-100vw",
-      },
-      { x: 0, duration: 3, ease: "power4.out" }
-    )
-    .to({}, { duration: 6 })
-    .to(
-      ".char4",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-4", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char4",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    );
-
-  const textElement5 = document.querySelector(".typing-text5");
-  const text5 = "Sedikit demi sedikit, fokusku meningkat.";
-  textElement5.innerHTML = text5
-    .split("")
-    .map((char) => `<span class="char5">${char}</span>`)
-    .join("");
-  gsap.set(".char5", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-    .fromTo(
-      ".s2-5",
-      {
-        x: "-100vw",
-      },
-      { x: 0, duration: 3, ease: "power4.out" }
-    )
-    .to({}, { duration: 6 })
-    .to(
-      ".char5",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-5", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char5",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.05,
-        ease: "none",
-      },
-      "<0.5"
-    );
-
-  const textElement6 = document.querySelector(".typing-text6");
-  const text6 = "Dan kini, aku bisa lebih hadir untuk hal-hal yang benar-benar penting.";
-  textElement6.innerHTML = text6
-    .split("")
-    .map((char) => `<span class="char6">${char}</span>`)
-    .join("");
-  gsap.set(".char6", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-
-    .fromTo(
-      ".s2-6",
-      {
-        x: "-100vw",
-      },
-      { x: 0, duration: 3, ease: "power4.out" }
-    )
-    .to({}, { duration: 6 })
-    .to(
-      ".char6",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(".s2-6", { x: "-100vw", duration: 6, ease: "power4.out", delay: 5 })
-    .to(
-      ".char6",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".s3-1",
-      {
-        x: "-150vw",
-      },
-      {
-        x: 0,
-        duration: 3,
         ease: "power4.out",
-      }
+      }, "<"
     )
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".bubbleText6",
-      {
-        y: "100vh",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".bubbleText7",
-      {
-        y: "100vh",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to(".bubbleText6", {
-      y: "-100vh",
-      duration: 3,
-      ease: "power4.out",
-    })
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(".bubbleText7", {
-      y: "-100vh",
-      duration: 3,
-      ease: "power4.out",
-    })
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".s3-2",
-      {
-        x: "150vw",
-        y: "-150vh",
-      },
-      {
-        x: 0,
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    );
-
-  const textElement7 = document.querySelector(".typing-text7");
-  const text7 = "Kualitas tidur buruk karena penggunaan handphone";
-  textElement7.innerHTML = text7
-    .split("")
-    .map((char) => `<span class="char7">${char}</span>`)
-    .join("");
-  gsap.set(".char7", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(
-      ".char7",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(
-      ".char7",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    );
-
-  const textElement8 = document.querySelector(".typing-text8");
-  const text8 = "Bisa dihentikan dengan melepas handphone saat malam";
-  textElement8.innerHTML = text8
-    .split("")
-    .map((char) => `<span class="char8">${char}</span>`)
-    .join("");
-  gsap.set(".char8", { opacity: 0 });
-
-  tl.to({}, { duration: 6 })
-    .fromTo(
-      ".s3-3",
-      {
-        y: "-100vh",
-      },
-      {
-        y: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to(
-      ".s3-1",
-      {
-        x: "-100vw",
-        duration: 3,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to(
-      ".s3-2",
-      {
-        scale: 5,
-        duration: 5,
-        ease: "power4.out",
-      },
-      "<"
-    )
-    .to({}, { duration: 6 })
-    .fromTo(
-      ".s3-4",
-      {
-        x: "-150vw",
-      },
-      {
-        x: 0,
-        duration: 3,
-        ease: "power4.out",
-      }
-    )
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(
-      ".char8",
-      {
-        opacity: 1,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to(
-      ".char8",
-      {
-        opacity: 0,
-        duration: 3,
-        stagger: 0.5,
-        ease: "none",
-      },
-      "<0.5"
-    )
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(".s3-4", {
-      x: "-150vw",
-      duration: 3,
-      ease: "power4.out",
-    })
-    .to({}, { duration: 6 })
-    .to({}, { duration: 6 })
-    .to(".s3-2", {
-      opacity: 0,
-      duration: 3,
-      ease: "power4.out",
-    })
-    .to(
-      ".s3-3",
-      {
-        y: "-100vh",
-        duration: 3,
-        ease: "power4.out",
-      },
-      "<"
-    );
 }
 
-function gsapExit(tl) {}
+function s1f8(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to([".bubText1", ".bubText2"], {
+    y: "-200vh",
+    duration: 3,
+    ease: "power2.out",
+  }, ">").fromTo(
+    ".bubbleText3",
+    {
+      y: "200vh",
+      opacity: 0.5,
+    },
+    {
+      y: 0,
+      duration: 2,
+      opacity: 1,
+      ease: "power4.out",
+    },
+    "<"
+  ).fromTo(
+    ".bubbleText4",
+    {
+      y: "200vh",
+      opacity: 0.5,
+    },
+    {
+      y: 0,
+      duration: 2,
+      opacity: 1,
+      ease: "power4.out",
+    }, "<"
+  )
+}
 
-//TODO: OTHER FUNCTION BELOW
+function s1f9(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.to([".bubbleText3", ".bubbleText4"], {
+    y: "-200vh",
+    duration: 3,
+    ease: "power2.out",
+  }, ">").fromTo(
+    ".bubbleText5",
+    {
+      y: "200vh",
+      opacity: 0.5
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 3,
+      ease: "power2.out",
+    },
+    "<"
+  )
+}

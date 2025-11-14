@@ -2,15 +2,16 @@
 let shakeGSAP;
 
 // VARIABLE FOR DOM
-const splashView = document.querySelector(".splash");
-const sectionOne = document.querySelector(".section-one");
+const section = document.querySelector(".splash");
+const nextSection = document.querySelector(".section-one");
+
 
 export function loadingScreen(tl = gsap.timeline()) {
   return new Promise((resolve) => {
-    sectionOne.style.display = "none";
+    if (section.style.display == "") {resolve(); return;}
+
     gsapEntry(tl);
 
-    // Exit after 3 seconds
     setTimeout(() => {
       gsapExit(tl, resolve);
     }, 3000);
@@ -48,12 +49,11 @@ function gsapExit(tl, resolve) {
 
   tl = gsap.timeline();
   tl.to([".splashText", ".splashIMG"], {
-    opacity: 0,
-    duration: 2,
+    y: '120vh',
+    duration: 1,
     ease: "power1.out",
     onComplete: () => {
-      sectionOne.style.display = "block";
-      resolve(); // ✅ let main.js know loading is done
-    },
-  });
+      resolve()
+    }
+  }).to(nextSection, { opacity: 1 }).to(section, { opacity: 0 })
 }
