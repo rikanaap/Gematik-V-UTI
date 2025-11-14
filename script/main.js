@@ -1,5 +1,6 @@
 import "./core.js"
 import { closing } from "./design/closing.js";
+import { startGame } from "./design/game.js";
 
 import { loadingScreen } from "./design/loadingScreen.js"
 import { sceneFive } from "./design/sceneFive.js";
@@ -7,7 +8,7 @@ import { sceneOne } from "./design/sceneOne.js"
 import { sceneThree } from "./design/sceneThree.js";
 import { sceneTwo } from "./design/sceneTwo.js";
 
-const sections = document.querySelectorAll(".section-one, .section-two, .section-three");
+const sections = document.querySelectorAll(".section-one, .section-two, .section-three, .section-five");
 
 // Loading Scene
 sections.forEach((section) => { gsap.set(section, { opacity: 0 }) })
@@ -22,3 +23,5 @@ sections.forEach((section) => { gsap.set(section, { opacity: 0 }) })
 
 // sceneFive()
 closing()
+// })
+// startGame()

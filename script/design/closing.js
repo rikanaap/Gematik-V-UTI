@@ -1,15 +1,18 @@
 import { createTimeline } from "../general.js";
+import { startGame } from "./game.js";
 
 // TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
 // TODO: VARIABLE FOR DOM
 const section = document.querySelector(".closing"); //!! CHANGE SECTION NAME
+const sectionGame = document.querySelector(".sgame"); //!! CHANGE SECTION NAME
 const elements = document.querySelectorAll('[class^="s6-"]');
 
 let tl;
 export function closing() {
   return new Promise((resolve) => {
     elements.forEach((elemen) => { elemen.style.opacity = 0 })
+    sectionGame.style.opacity = 0
     gsapEntry();
     gsapExit(resolve);
   })
@@ -49,6 +52,7 @@ function gsapExit(resolve) {
     .fromTo(".s6-6", {
       opacity: 0,  rotate: -20, y: -100
     }, { opacity: 1, scale: 1, rotate: 5, ease: "bounce", y:0, duration: 1 })
+    .to("sgame", { opacity: 1, onComplete: () => { startGame() } })
 }
 
 //TODO: OTHER FUNCTION BELOW
