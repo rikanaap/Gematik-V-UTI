@@ -4,6 +4,7 @@ import { startGame } from "./design/game.js";
 
 import { loadingScreen } from "./design/loadingScreen.js"
 import { sceneFive } from "./design/sceneFive.js";
+import { sceneFour } from "./design/sceneFour.js";
 import { sceneOne } from "./design/sceneOne.js"
 import { sceneThree } from "./design/sceneThree.js";
 import { sceneTwo } from "./design/sceneTwo.js";
@@ -21,7 +22,12 @@ sections.forEach((section) => { gsap.set(section, { opacity: 0 }) })
 //   })
 // });
 
+// sceneFour()
+sceneFive()
 // sceneFive()
-closing()
+// closing()
 // })
 // startGame()
+
+ 
+  
