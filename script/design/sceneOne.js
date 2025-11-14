@@ -799,6 +799,491 @@ function gsapEntry(tl) {
       },
       "<"
     );
+    // ===== SCENE FOUR =====
+    const s4_1 = document.querySelector(".s4-1");
+    const s4_2 = document.querySelector(".s4-2");
+    const s4_3 = document.querySelector(".s4-3");
+    const s4_4 = document.querySelector(".s4-4");
+    const s4_5 = document.querySelector(".s4-5");
+    const s4_6 = document.querySelector(".s4-6");
+    const s4_7 = document.querySelector(".s4-7");
+    const s4_8 = document.querySelector(".s4-8");
+
+    const textElement9 = document.querySelector(".typing-text9");
+    const text9 = "Tidur berkualitas... mengembalikan energimu.";
+    textElement9.innerHTML = text9
+      .split("")
+      .map((char) => `<span class="char9">${char}</span>`)
+      .join("");
+    gsap.set(".char9", { opacity: 0 });
+
+    tl.to({}, { duration: 6 })
+      .fromTo(
+        ".s4-2",
+        { x: "100vw", opacity: 0 },
+        { x: 0, opacity: 1, duration: 5, ease: "power2.out" }
+      )
+      .fromTo(
+        ".s4-1",
+        { x: "-100vw" },
+        { x: 0, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to(
+        ".section-one",
+        {
+          backgroundColor: "#76B3C9",
+          duration: 3,
+          ease: "power2.inOut",
+          immediateRender: false,
+        },
+        "<"
+      )
+      .to({}, { duration: 1.5 })
+      .to(
+        ".char9",
+        { opacity: 1, duration: 14, stagger: { each: 0.15, from: "start" }, ease: "none" }
+      )
+      .to({}, { duration: 16 })
+      .to(
+        [".s4-1", ".s4-2"],
+        { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
+      )
+      .to(
+        ".char9",
+        { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
+      );
+
+    const textElement10 = document.querySelector(".typing-text10");
+    const text10 = "Dulu, energi hanya cukup untuk...";
+    textElement10.innerHTML = text10
+      .split("")
+      .map((char) => (char === "|" ? "<br/>" : `<span class="char10">${char}</span>`))
+      .join("");
+    gsap.set(".char10", { opacity: 0 });
+
+    tl.to({}, { duration: 10 })
+      .fromTo(
+        ".s4-3",
+        { x: "-100vw" },
+        { x: 0, duration: 5, ease: "power2.out" }
+      )
+      .fromTo(
+        ".s4-4",
+        { x: "100vw" },
+        { x: 0, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to({}, { duration: 1.5 })
+      .to(
+        ".char10",
+        { opacity: 1, duration: 56, stagger: { each: 0.15, from: "start" }, ease: "none" }
+      )
+      .to({}, { duration: 16 })
+      .to(
+        [".s4-3", ".s4-4"],
+        { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
+      )
+      .to(
+        ".char10",
+        { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
+      );
+
+    const textElement11 = document.querySelector(".typing-text11");
+    const text11 = "...scroll sendirian.";
+    textElement11.innerHTML = text11
+      .split("")
+      .map((char) => `<span class="char11">${char}</span>`)
+      .join("");
+    gsap.set(".char11", { opacity: 0 });
+    gsap.set(".typing-text11", { opacity: 0 });
+
+    tl.to({}, { duration: 10 })
+      .fromTo(
+        ".s4-3",
+        { x: "-100vw", scale: 1 },
+        { x: 0, scale: 1, duration: 5, ease: "power2.out" }
+      )
+      .fromTo(
+        ".s4-5",
+        { x: "100vw", opacity: 0 },
+        { x: 0, opacity: 1, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to({}, { duration: 0.5 })
+      .to(
+        ".s4-3",
+        { scale: 1.09, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(
+        ".s4-3",
+        { scale: 1.18, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(
+        ".s4-3",
+        { scale: 1.25, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(
+        ".s4-5",
+        { scale: 1, opacity: 1, duration: 16, ease: "power1.inOut" },
+        "<-16"
+      )
+
+      .to(".typing-text11", { opacity: 1, duration: 1 })
+      .to(
+        ".char11",
+        { opacity: 1, duration: 56, stagger: { each: 0.15, from: "start" }, ease: "none" }
+      )
+      .to({}, { duration: 16 })
+      .to(
+        [".s4-3", ".s4-5"],
+        { x: "-100vw", duration: 6, ease: "power2.inOut" }
+      )
+      .to(
+        ".char11",
+        { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
+      );
+
+    const textElement12 = document.querySelector(".typing-text12");
+    const text12 = "Tapi kini, kamu memilih untuk hadir.";
+    textElement12.innerHTML = text12
+      .split("")
+      .map((char) => `<span class="char12">${char}</span>`)
+      .join("");
+    gsap.set(".char12", { opacity: 0 });
+    gsap.set(".typing-text12", { opacity: 0 });
+
+    tl.to({}, { duration: 10 })
+      .fromTo(
+        ".s4-6",
+        { x: "-100vw", scale: 1 },
+        { x: 0, scale: 1, duration: 5, ease: "power2.out" }
+      )
+      .fromTo(
+        ".s4-7",
+        { x: "100vw", scale: 0.8, opacity: 0.5 },
+        { x: 0, scale: 1, opacity: 1, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to({}, { duration: 0.5 })
+      .to(
+        ".s4-6",
+        { scale: 1.09, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(
+        ".s4-6",
+        { scale: 1.18, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(
+        ".s4-6",
+        { scale: 1.25, duration: 12, ease: "power1.inOut", transformOrigin: "left center" }
+      )
+      .to(".typing-text12", { opacity: 1, duration: 1 })
+      .to(
+        ".char12",
+        { opacity: 1, duration: 56, stagger: { each: 0.15, from: "start" }, ease: "none" }
+      )
+      .to({}, { duration: 16 })
+      .to(
+        [".s4-6", ".s4-7"],
+        { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
+      )
+      .to(
+        ".char12",
+        { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
+      );
+
+    const textElement13 = document.querySelector(".typing-text13");
+    const text13 = "Menemukan kembali momen berharga.";
+    textElement13.innerHTML = text13
+      .split("")
+      .map((char) => (char === "|" ? "<br/>" : `<span class="char13">${char}</span>`))
+      .join("");
+    gsap.set(".char13", { opacity: 0 });
+
+    tl.to({}, { duration: 10 })
+      .fromTo(
+        ".s4-8",
+        { x: "-100vw", scale: 1 },
+        { x: 0, scale: 1, duration: 5, ease: "power2.out" }
+      )
+      .to(
+        ".s4-8",
+        { scale: 1.05, duration: 12, ease: "power1.inOut", transformOrigin: "left center" },
+        "<"
+      )
+      .to(
+        ".char13",
+        { opacity: 1, duration: 56, stagger: { each: 0.15, from: "start" }, ease: "none" }
+      )
+      .to({}, { duration: 16 })
+      .to(
+        ".s4-8",
+        { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
+      )
+      .to(
+        ".char13",
+        { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
+      )
+      .call(() => gsap.set(".scene-five-wrap", { opacity: 0, display: "block" }))
+      .to(
+        ".scene-four-wrap",
+        {
+          opacity: 0,
+          duration: 2,
+          ease: "power2.inOut"
+        },
+        "+=5"
+      )
+      .to(
+        ".scene-five-wrap",
+        {
+          opacity: 1,
+          duration: 0.5,
+          onComplete: () => gsap.set(".scene-four-wrap", { display: "none" }),
+          onReverseComplete: () => {
+            gsap.set(".scene-four-wrap", { display: "block", opacity: 1 });
+            gsap.set(".scene-five-wrap", { display: "none", opacity: 0 });
+          }
+        }
+      );
+
+    // ===== SCENE FIVE: Playing Ball Animation =====
+    // Initial state: hide all scene five elements
+    gsap.set([
+      ".s5-cloud-1",
+      ".s5-bushes-1",
+      ".s5-ball-full",
+      ".s5-char-1",
+      ".s5-ball-dribble-1",
+      ".s5-char-dribble-1",
+      ".s5-ball-dribble-2",
+      ".s5-char-dribble-2",
+      ".s5-ball-dribble-3",
+      ".s5-char-dribble-3",
+      ".s5-ball-dribble-4",
+      ".s5-char-dribble-4",
+      ".s5-ball-dribble-5",
+      ".s5-char-dribble-5",
+      ".s5-ball-dribble-6",
+      ".s5-char-dribble-6",
+      ".s5-ball-final",
+      ".s5-char-3",
+      ".bubbleText-s5-1",
+      ".bubbleText-s5-2"
+    ], { opacity: 0 });
+
+    // Slide 1: Cloud and Bushes enter (background scene setup)
+    tl.to({}, { duration: 10 })
+      .to(
+        ".section-one",
+        {
+          backgroundColor: "#76B3C9",
+          duration: 3,
+          ease: "power2.inOut",
+          immediateRender: false,
+        }
+      )
+      .fromTo(
+        ".s5-cloud-1",
+        { x: "-200vw", opacity: 0 },
+        { x: 0, opacity: 1, duration: 6, ease: "power2.out" }
+      )
+      .fromTo(
+        ".s5-bushes-1",
+        { y: "100vh", opacity: 0 },
+        { y: 0, opacity: 1, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to({}, { duration: 8 });
+
+    tl.fromTo(
+      ".s5-ball-full",
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 4, ease: "power2.out" }
+    )
+      .fromTo(
+        ".s5-char-1",
+        { x: 0, opacity: 0 },
+        { x: "100px", opacity: 1, duration: 5, ease: "power2.out" },
+        "<"
+      )
+      .to({}, { duration: 8 });
+
+    tl.to([".s5-ball-full", ".s5-char-1"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-1", ".s5-char-dribble-1"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-1",
+        { left: "-5%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-1",
+        { left: "18%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-1",
+        { rotation: 720, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 4 });
+
+    tl.to([".s5-ball-dribble-1", ".s5-char-dribble-1"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-2", ".s5-char-dribble-2"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-2",
+        { left: "2%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-2",
+        { left: "24%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-2",
+        { rotation: 720, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 4 });
+
+    tl.to([".s5-ball-dribble-2", ".s5-char-dribble-2"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-3", ".s5-char-dribble-3"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-3",
+        { left: "9%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-3",
+        { left: "30%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-3",
+        { rotation: 720, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 4 });
+
+    tl.to([".s5-ball-dribble-3", ".s5-char-dribble-3"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-4", ".s5-char-dribble-4"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-4",
+        { left: "16%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-4",
+        { left: "36%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-4",
+        { rotation: 720, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 4 });
+
+    tl.to([".s5-ball-dribble-4", ".s5-char-dribble-4"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-5", ".s5-char-dribble-5"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-5",
+        { left: "23%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-5",
+        { left: "42%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-5",
+        { rotation: 720, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 4 });
+
+    tl.to([".s5-ball-dribble-5", ".s5-char-dribble-5"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-ball-dribble-6", ".s5-char-dribble-6"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to(
+        ".s5-char-dribble-6",
+        { left: "30%", duration: 7, ease: "power2.inOut" }
+      )
+      .to(
+        ".s5-ball-dribble-6",
+        { left: "48%", duration: 7, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-ball-dribble-6",
+        { rotation: 360, duration: 7, ease: "none", transformOrigin: "50% 50%" },
+        "<"
+      )
+      .to({}, { duration: 5 });
+
+    tl.to(
+      ".section-one",
+      {
+        backgroundColor: "#20262D",
+        duration: 5,
+        ease: "power2.inOut",
+        immediateRender: false,
+      }
+    )
+      .to(
+        ".s5-cloud-1",
+        { x: "-200vw", opacity: 0, duration: 4, ease: "power2.inOut" },
+        "<"
+      )
+      .to(
+        ".s5-bushes-1",
+        { y: "100vh", opacity: 0, duration: 4, ease: "power2.inOut" },
+        "<"
+      )
+      .to([".s5-char-dribble-6", ".s5-ball-dribble-6"], { opacity: 0, duration: 1 })
+      .to(
+        [".s5-char-3", ".s5-ball-final"],
+        { opacity: 1, duration: 1 },
+        "<"
+      )
+      .to({}, { duration: 4 })
+      .fromTo(
+        ".bubbleText-s5-1",
+        { y: "100vh", opacity: 0 },
+        { y: 0, opacity: 1, duration: 6, ease: "power2.out" }
+      )
+      .to({}, { duration: 12 })
+      .fromTo(
+        ".bubbleText-s5-2",
+        { y: "100vh", opacity: 0 },
+        { y: 0, opacity: 1, duration: 6, ease: "power2.out" }
+      )
+      .to({}, { duration: 14 })
+      .to(
+        [".bubbleText-s5-1", ".bubbleText-s5-2"],
+        { y: "-100vh", opacity: 0, duration: 5, ease: "power2.inOut", stagger: 0.5 }
+      );
 }
 
 function gsapExit(tl) {}
