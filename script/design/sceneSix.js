@@ -134,6 +134,16 @@ function s6f3(trigger) {
           const start = st.start || 0;
           if (start > trigY) st.disable();
         });
+        const interval = setInterval(() => {
+          if (Date.now() - lastScroll > 3000) {
+            clearInterval(interval);
+            window.scrollTo({
+              top: scrollYS3 + 100,
+              behavior: "auto"
+            });
+            s6f4();
+          }
+        }, 300);
       }
     })
   } else {

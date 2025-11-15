@@ -43,6 +43,12 @@ export function createTimeline(options = { scroll: false, trigger: null, start: 
 }
 
 function startAutoScroll() {
+    autoScrollBtn.innerText = "Auto Scroll";
+    autoScrollBtn.classList.remove("bg-gray]-400");
+    autoScrollBtn.classList.add("bg-purple-500");
+    document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("bg-purple-300"));
+    document.querySelector(".speedBtn, .play-1").classList.add("bg-purple-500");
+    gsap.to(".grid-auto-scroll", { opacity: 1 })
     autoScrollInterval = setInterval(() => {
         window.scrollBy(0, autoScrollSpeed);
     }, 10);
@@ -63,6 +69,11 @@ function startBackScroll() {
 
 export function stopAutoScroll() {
     clearInterval(autoScrollInterval);
+    autoScrollBtn.innerText = "Auto Scroll";
+    autoScrollBtn.classList.remove("bg-purple-500");
+    autoScrollBtn.classList.add("bg-gray-400");
+    document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("bg-purple-500"));
+    gsap.to(".grid-auto-scroll", { opacity: 0 })
 }
 
 function stopBackScroll() {
@@ -156,7 +167,7 @@ export function addOn() {
                 stopAutoScroll();
                 autoScrollBtn.innerText = "Auto Scroll";
                 autoScrollBtn.classList.remove("bg-purple-500");
-                autoScrollBtn.classList.add("bg-sky-400");
+                autoScrollBtn.classList.add("bg-purple-400");
                 document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("bg-purple-300"));
             }
 
@@ -170,19 +181,9 @@ export function addOn() {
 
         if (autoScrollActive) {
             startAutoScroll();
-            autoScrollBtn.innerText = "Auto Scroll";
-            autoScrollBtn.classList.remove("bg-gray]-400");
-            autoScrollBtn.classList.add("bg-purple-500");
-            document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("bg-purple-300"));
-            document.querySelector(".speedBtn, .play-1").classList.add("bg-purple-500");
-            gsap.to(".grid-auto-scroll", { opacity: 1 })
+
         } else {
             stopAutoScroll();
-            autoScrollBtn.innerText = "Auto Scroll";
-            autoScrollBtn.classList.remove("bg-purple-500");
-            autoScrollBtn.classList.add("bg-gray-400");
-            document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("bg-purple-500"));
-            gsap.to(".grid-auto-scroll", { opacity: 0 })
         }
     };
 
