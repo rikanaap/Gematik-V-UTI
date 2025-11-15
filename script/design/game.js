@@ -40,6 +40,20 @@ let bulletInterval = null;
 const bullets = [];
 const particles = [];
 
+
+function resetPlanetData() {
+    planets.length = 0; // buang semua
+
+    const initialPlanets = [
+        { name: "Harmoni", x: 250, y: 250, size: 50, hp: 8, dx: 2, dy: 1, scale: 0 },
+        { name: "Bintang", x: 600, y: 350, size: 50, hp: 8, dx: -2, dy: 2, scale: 0 },
+        { name: "Ilyas", x: 950, y: 200, size: 50, hp: 8, dx: 1, dy: -1, scale: 0 },
+    ];
+
+    initialPlanets.forEach(p => planets.push({ ...p }));
+}
+
+
 // ---------------- DRAW PLANE ----------------
 function drawPlane() {
     ctx.save();
@@ -230,6 +244,8 @@ function update() {
 }
 
 export function startGame() {
+
+    resetPlanetData();
     gameRunning = true;
 
     let tl = createTimeline();

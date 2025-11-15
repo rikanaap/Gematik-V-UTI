@@ -8,7 +8,6 @@ const nextSection = document.querySelector(".section-one");
 
 export function loadingScreen(tl = gsap.timeline()) {
   return new Promise((resolve) => {
-    if (section.style.display == "") {resolve(); return;}
 
     gsapEntry(tl);
 

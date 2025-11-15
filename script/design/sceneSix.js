@@ -1,4 +1,4 @@
-import { createTimeline } from "../general.js";
+import { autoScrollActive, createTimeline, showPanel } from "../general.js";
 
 // TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
@@ -21,6 +21,7 @@ export function sceneSix() {
 
 function gsapEntry() {
   tl = createTimeline()
+  tl.set(section, { opacity: 1 })
   s6f1(".div-s6_s")
   s6f2(".div-s6_1")
   s6f3(".div-s6_2")
@@ -29,12 +30,13 @@ function gsapEntry() {
 }
 
 function gsapExit(resolve) {
-  tl = createTimeline({ scroll: true, end: "+=3000", trigger: ".div-s6_f" })
+  tl = createTimeline({ scroll: true, end: "+=2000", trigger: ".div-s6_f" })
   tl.to(".s6-10", { opacity: 1, duration: 1 }).set(".s6-11", { opacity: 1 }, "<").to(".s6-11", {
     y: "-400vh", duration: 3, delay: 0.5
   }).to(".s6-10, .s6-11, .s6-1, .s6-9", { opacity: 0, onComplete: () => { resolve() } })
-  .to(nextSection, { opacity: 1, onComplete: () => gsap.to(section, { display: "none", backgroundColor: "#20262D" }) })
-
+    .to(nextSection, { opacity: 1 }).set(section, {
+      display: "none", duration: 0, backgroundColor: "#20262D"
+    }, "<")
 }
 
 //TODO: OTHER FUNCTION BELOW
@@ -81,12 +83,12 @@ function s6f2(trigger) {
     }
   })
 
-  tl.set(".s6-5", { opacity: 1, width: 120 }).to(".s6-7", { y: -250, opacity: 1 })
+  tl.set(".s6-5", { opacity: 1, width: 120 }).to(".s6-7", { y: -400, opacity: 1 })
 }
 
 function s6f3(trigger) {
   tl = createTimeline({ scroll: true, trigger, end: "+=2000" })
-  tl.to(".s6-7", { y: 0 }).set(".s6-6", { width: 120 }, "<").to(".s6-5", { opacity: 0, duration: 0.5 }, "<").to(".s6-6", { opacity: 1, duration: 0.5 }, "<")
+  tl.to(".s6-7", { y: -69 }).set(".s6-6", { width: 120 }, "<").to(".s6-5", { opacity: 0, duration: 0.5 }, "<").to(".s6-6", { opacity: 1, duration: 0.5 }, "<")
     .to(".s6-4", {
       backgroundColor: "#20262D",
       height: 0,
@@ -112,11 +114,14 @@ function s6f3(trigger) {
       y: 30,
       rotate: 10,
       scale: 1.5
-    }).fromTo(".s6-8", {
+    })
+
+  if (!autoScrollActive) {
+    tl.fromTo(".s6-8", {
       opacity: 1,
       rotate: 0,
       y: "-200vh"
-    }, { y: 0, rotate: 10 }).set(".section-five", {
+    }, { y: 0, rotate: 10 }).set(".section-six", {
       backgroundColor: "#000000", onComplete: () => {
         scrollYS3 = window.scrollY
 
@@ -129,7 +134,25 @@ function s6f3(trigger) {
           const start = st.start || 0;
           if (start > trigY) st.disable();
         });
+      }
+    })
+  } else {
+    tl.fromTo(".s6-8-player", {
+      opacity: 0, scale: 0, rotate: 0
+    }, { scale: 1, opacity: 1, rotate: "-10deg", opacity: 1 }).set(".section-six", {
+      backgroundColor: "#000000", onComplete: () => {
+        showPanel()
+        scrollYS3 = window.scrollY
 
+        let lastScroll = Date.now();
+        window.addEventListener("scroll", () => { lastScroll = Date.now(); });
+        const trig = document.querySelector(trigger);
+
+        const trigY = trig.getBoundingClientRect().top + window.scrollY;
+        ScrollTrigger.getAll().forEach(st => {
+          const start = st.start || 0;
+          if (start > trigY) st.disable();
+        });
         const interval = setInterval(() => {
           if (Date.now() - lastScroll > 3000) {
             clearInterval(interval);
@@ -140,14 +163,17 @@ function s6f3(trigger) {
             s6f4();
           }
         }, 300);
+
       }
     })
+  }
 }
 
 function s6f4() {
   tl = createTimeline()
-  tl.to(".section-five", { backgroundColor: '#20262D', duration: 3 })
+  tl.to(".section-six", { backgroundColor: '#20262D', duration: 3 })
     .to(".s6-8", { rotate: 0, y: "-200vh", duration: 3 }, "<")
+    .to(".s6-8-player", { rotate: 0, scale: 0, opacity: 0, duration: 3 }, "<")
     .to(".s6-3", { height: 10, duration: 1.5 }, "<")
     .to(".s6-notif:nth-child(-n+7)", {
       scale: 0,
@@ -197,7 +223,7 @@ function s6f5(trigger) {
       scale: 3,
       y: () => window.innerHeight / 2 - document.querySelector(".time").offsetHeight / 2,
       duration: 1,
-    }).to("section-five", { backgroundColor: "#000000", duration: 1 }, "<")
+    }).to("section-six", { backgroundColor: "#000000", duration: 1 }, "<")
 }
 
 function s6f6(trigger) {
@@ -217,5 +243,5 @@ function s6f6(trigger) {
     .fromTo(".s6-9", {
       y: "200vh", opacity: 1
     }, { y: 0, duration: 1 }, "<")
-    .to(".section-five", { backgroundColor: "#D3D9E0", duration: 1 }, "<")
+    .to(".section-six", { backgroundColor: "#D3D9E0", duration: 1 }, "<")
 }

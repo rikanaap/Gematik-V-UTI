@@ -3,8 +3,8 @@ import { createTimeline } from "../general.js";
 // TODO: VARIABLE FOR EXIT REPEAT ANIMATION
 
 // TODO: VARIABLE FOR DOM
-const section = document.querySelector(".section-");
-const nextSection = document.querySelector(".section-four")
+const section = document.querySelector(".section-three");
+const nextSection = document.querySelector(".scene-four-wrap")
 const elements = document.querySelectorAll('[class^="s3-"], .bubbleText6, .bubbleText7');
 
 let tl;
@@ -35,13 +35,13 @@ function gsapExit(resolve) {
     duration: 1,
     ease: "power4.out",
   }).to(".s3-3", {
-      y: "-100vh",
-      duration: 1,
-      ease: "power4.out",
-      onComplete: () => { resolve() }
-    },
+    y: "-100vh",
+    duration: 1,
+    ease: "power4.out",
+    onComplete: () => { resolve() }
+  },
     "<"
-  );
+  ).to(nextSection, { opacity: 1 }).set(section, { display: "none", duration: 0, backgroundColor: "#76B3C9" }, "<")
 }
 
 //TODO: OTHER FUNCTION BELOW

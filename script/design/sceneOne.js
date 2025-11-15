@@ -15,8 +15,6 @@ let tl, timeObj = { h: 0, m: 0 };
 
 export function sceneOne() {
   return new Promise((resolve) => {
-    if (section.style.display == "") {resolve(); return;}
-    
     notifImage.forEach((notif) => (notif.style.opacity = 0));
     bubbles.forEach((bubble) => bubble.style.opacity = 0)
     gsapEntry();
@@ -28,12 +26,23 @@ function gsapEntry() {
 
   //? OPENING
   tl = gsap.timeline()
-  tl.to(".s1-notif", { scale: 0 })
-  tl.fromTo(
+  tl.to(".s1-notif", { scale: 0 }).fromTo(
     ".s1-hand",
     { y: "200vh", opacity: 1 },
     { y: 5, duration: 1 }
-  )
+  ).from("#scrollText", {
+    opacity: 0,
+    y: 20,
+    duration: 1.2,
+    ease: "power2.out",
+  }).to("#control-wrapper", { opacity: 0.5 }, "<").to("#scrollText polygon, #scrollText line", {
+    y: 10,
+    repeat: -1,
+    yoyo: true,
+    ease: "power1.inOut",
+    duration: 0.8,
+    delay: 1 // start after text fades in
+  })
 
   s1f1(".div-s1_1")
   s1f2(".div-s1_2")
@@ -57,13 +66,13 @@ function gsapExit(resolve) {
       immediateRender: false,
     })
     .to(".bubbleText5", { scale: 0, y: "-200vh", duration: 2, ease: "power4.inOut", onComplete: () => { resolve(); } }, "<")
-    .to(nextSection, { opacity: 1, onComplete: () => gsap.set(section, { display: "none" }) })
+    .to(nextSection, { opacity: 1 }).set(section, { display: "none", duration: 0 }, "<")
 }
 
 //TODO: OTHER FUNCTION BELOW
 function s1f1(trigger) {
   tl = createTimeline({ scroll: true, trigger })
-  tl.to(
+  tl.to("#scrollText", { scale: 0, rotate: 20, duration: 5 }).to(
     ".s1-hand",
     {
       rotate: 25,
@@ -171,29 +180,31 @@ function s1f4(trigger) {
       }, "<"
     )
     .to(
-      ".s1-notif:nth-child(6)",
-      {
-        x: -500,
-        y: 180,
-        scale: 0.7,
-        duration: 1,
-        ease: "power2.out",
-      }, "<"
-    )
-    .to(
-      ".s1-notif:nth-child(3)",
+      ".s1-notif:nth-child(3)", //3 Kanan
       {
         x: -140,
-        y: -100,
-        duration: 1,
+        y: 20,
+        duration: 0.5,
         ease: "power2.out",
       }, "<"
     )
     .to(
-      ".s1-notif:nth-child(2)",
+      ".s1-notif:nth-child(2)", //2 Kanan
       {
         x: -50,
-        y: 70,
+        y: 100,
+        scale: 0.5,
+        duration: 0.5,
+        ease: "power2.out",
+      }, "<"
+    )
+    .to(
+      ".s1-notif:nth-child(6)", //1 Kanan
+      {
+        x: -500,
+        y: 40,
+        scale: 0.7,
+        rotate: 20,
         duration: 1,
         ease: "power2.out",
       }, "<"

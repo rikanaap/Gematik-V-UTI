@@ -65,8 +65,6 @@ function gsapEntry() {
   gsap.set(".typing-text12", { opacity: 0 });
   gsap.set(".char13", { opacity: 0 });
 
-
-
   tl = createTimeline({ scroll: true, trigger: ".div-s4_s" })
   tl.fromTo(
     ".s4-2",
@@ -98,7 +96,14 @@ function gsapEntry() {
 
 function gsapExit(resolve) {
   tl = createTimeline({ scroll: true, trigger: ".div-s4_f" })
-  tl.to(nextSection, { opacity: 1, onComplete: () => gsap.set(section, { display: "none" }) })
+  tl.to(
+    ".s4-8",
+    { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
+  )
+    .to(
+      ".char13",
+      { opacity: 0, duration: 8, stagger: 0.12, ease: "none", onComplete: () => resolve() }
+    ).to(nextSection, { opacity: 1 }).set(section, { display: "none", duration: 0 }, "<")
 }
 
 //TODO: OTHER FUNCTION BELOW
@@ -193,14 +198,5 @@ function s4f4(trigger) {
     .to(
       ".char13",
       { opacity: 1, duration: 56, stagger: { each: 0.15, from: "start" }, ease: "none" }
-    )
-    .to({}, { duration: 16 })
-    .to(
-      ".s4-8",
-      { x: "-100vw", duration: 6, ease: "power2.inOut", delay: 5 }
-    )
-    .to(
-      ".char13",
-      { opacity: 0, duration: 8, stagger: 0.12, ease: "none" }
     )
 }

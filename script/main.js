@@ -6,28 +6,28 @@ import { loadingScreen } from "./design/loadingScreen.js"
 import { sceneFive } from "./design/sceneFive.js";
 import { sceneFour } from "./design/sceneFour.js";
 import { sceneOne } from "./design/sceneOne.js"
+import { sceneSix } from "./design/sceneSix.js";
 import { sceneThree } from "./design/sceneThree.js";
 import { sceneTwo } from "./design/sceneTwo.js";
+import { addOn, playMusic } from "./general.js";
 
-const sections = document.querySelectorAll(".section-one, .section-two, .section-three, .section-five");
 
+addOn();
 // Loading Scene
-sections.forEach((section) => { gsap.set(section, { opacity: 0 }) })
-// loadingScreen().then(() => {
-//   window.scrollTo(0, 0)
-//   sceneOne().then(() => {
-//     sceneTwo().then(() => {
-//       sceneThree();
-//     })
-//   })
-// });
-
-// sceneFour()
-sceneFive()
-// sceneFive()
-// closing()
-// })
-// startGame()
-
- 
-  
+loadingScreen().then(() => {
+    window.scrollTo(0, 0)
+    playMusic()
+    sceneOne().then(() => {
+        sceneTwo().then(() => {
+            sceneThree().then(() => {
+                sceneFour().then(() => {
+                    sceneFive().then(() => {
+                        sceneSix().then(() => {
+                            closing()
+                        })
+                    })
+                })
+            })
+        })
+    })
+});

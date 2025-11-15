@@ -1,4 +1,5 @@
 import { createTimeline } from "../general.js";
+import { stopAutoScroll } from "../general.js";
 import { startGame } from "./game.js";
 
 // TODO: VARIABLE FOR EXIT REPEAT ANIMATION
@@ -8,7 +9,7 @@ const section = document.querySelector(".closing"); //!! CHANGE SECTION NAME
 const sectionGame = document.querySelector(".sgame"); //!! CHANGE SECTION NAME
 const elements = document.querySelectorAll('[class^="s7-"]');
 
-let tl;
+let tl, gameRunning = false;
 export function closing() {
   return new Promise((resolve) => {
     elements.forEach((elemen) => { elemen.style.opacity = 0 })
@@ -52,7 +53,7 @@ function gsapExit(resolve) {
     .fromTo(".s7-6", {
       opacity: 0,  rotate: -20, y: -100
     }, { opacity: 1, scale: 1, rotate: 5, ease: "bounce", y:0, duration: 1 })
-    .to("sgame", { opacity: 1, onComplete: () => { startGame() } })
+    .to("sgame", { opacity: 1, onComplete: () => { if(!gameRunning) { gameRunning=true; startGame(); stopAutoScroll() } } })
 }
 
 //TODO: OTHER FUNCTION BELOW

@@ -59,7 +59,7 @@ function gsapExit(resolve) {
         ease: "power4.out",
         onComplete: () => { resolve() }
       }
-    ).to(nextSection, { opacity: 1, onComplete: () => gsap.set(section, { display: "none" }) })
+    ).to(nextSection, { opacity: 1}).set(section, { display: "none", duration: 0 }, "<")
 
 }
 

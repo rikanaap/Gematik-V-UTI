@@ -32,18 +32,23 @@ function gsapEntry() {
       { y: 0, opacity: 1, duration: 5, ease: "power2.out" },
       "<"
     )
+
+  s5f1(".div-s5_1")
+  s5f2(".div-s5_2")
+  s5f3(".div-s5_3")
 }
 
-s5f1(".div-s5_1")
-s5f2(".div-s5_2")
-
 function gsapExit(resolve) {
-
+  tl = createTimeline({ scroll: true, trigger: ".div-s5_f" })
+  tl.to(
+    [".s5-char-1", ".s5-bubbleText-1", ".s5-bubbleText-2"],
+    {
+      opacity: 0, duration: 1, stagger: 0.5, onComplete: () => { resolve() }
+    },)
+    .to(nextSection, { opacity: 1}).set(section, { display: "none", backgroundColor: "#20262D", duration: 0 }, "<")
 }
 
 //TODO: OTHER FUNCTION BELOW
-// ===== SCENE FIVE: Playing Ball Animation =====
-
 function s5f1(trigger) {
   tl = createTimeline({ scroll: true, trigger })
   tl.fromTo(
@@ -79,7 +84,7 @@ function s5f2(trigger) {
     ".scene-five-wrap",
     {
       backgroundColor: "#20262D",
-      duration: 5,
+      duration: 2,
       ease: "power2.inOut",
       immediateRender: false,
     }
@@ -91,40 +96,19 @@ function s5f2(trigger) {
       ".s5-bushes-1",
       { y: "100vh", opacity: 1 },
       "<"
-    )
+    ).to(".s5-char-1", { scale: 4, x: "-20%", y: "40%" }, "<").to(".s5-ball-full", { y: "100vh ", duration: 0.2 }, "<")
 }
 
-// tl
-//   .to(
-//     ".s5-cloud-1",
-//     { x: "-200vw", opacity: 0, duration: 4, ease: "power2.inOut" },
-//     "<"
-//   )
-//   .to(
-//     ".s5-bushes-1",
-//     { y: "100vh", opacity: 0, duration: 4, ease: "power2.inOut" },
-//     "<"
-//   )
-//   .to([".s5-char-dribble-6", ".s5-ball-dribble-6"], { opacity: 0, duration: 1 })
-//   .to(
-//     [".s5-char-3", ".s5-ball-final"],
-//     { opacity: 1, duration: 1 },
-//     "<"
-//   )
-//   .to({}, { duration: 4 })
-//   .fromTo(
-//     ".bubbleText-s5-1",
-//     { y: "100vh", opacity: 0 },
-//     { y: 0, opacity: 1, duration: 6, ease: "power2.out" }
-//   )
-//   .to({}, { duration: 12 })
-//   .fromTo(
-//     ".bubbleText-s5-2",
-//     { y: "100vh", opacity: 0 },
-//     { y: 0, opacity: 1, duration: 6, ease: "power2.out" }
-//   )
-//   .to({}, { duration: 14 })
-//   .to(
-//     [".bubbleText-s5-1", ".bubbleText-s5-2"],
-//     { y: "-100vh", opacity: 0, duration: 5, ease: "power2.inOut", stagger: 0.5 }
-//   );
+function s5f3(trigger) {
+  tl = createTimeline({ scroll: true, trigger })
+  tl.fromTo(
+    ".s5-bubbleText-1",
+    { opacity: 0, scale: 0, rotate: -20 },
+    { y: 0, scale: 1, rotate: 6, opacity: 1, duration: 1, ease: "bounce" }
+  )
+    .fromTo(
+      ".s5-bubbleText-2",
+      { opacity: 0, scale: 0, rotate: -20 },
+      { y: 0, scale: 1, rotate: 6, opacity: 1, duration: 1, ease: "bounce" }
+    )
+}
